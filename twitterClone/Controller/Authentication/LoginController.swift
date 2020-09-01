@@ -1,0 +1,95 @@
+//
+//  File.swift
+//  twitterClone
+//
+//  Created by joao camargo on 31/08/20.
+//  Copyright © 2020 joaocamargo. All rights reserved.
+//
+
+import UIKit
+
+class LoginController: UIViewController {
+    
+    //MARK: - properties
+    private let logoImageView: UIImageView = {
+       let iv = UIImageView()
+        iv.contentMode = .scaleAspectFit
+        iv.clipsToBounds = true
+        iv.image = #imageLiteral(resourceName: "TwitterLogo")
+        return iv
+    }()
+    
+//    private lazy var emailContainerView: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = .red
+//        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+//
+//        let iv = UIImageView()
+//        iv.image = #imageLiteral(resourceName: "mail")
+//        view.addSubview(iv)
+//        iv.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, paddingLeft: 8, paddingRight: 8)
+//        iv.setDimensions(width: 24, height: 24)
+//
+//        return view
+//    }()
+
+    
+    private let emailTextField: UITextField = {
+        return Utilities().textField(withPlaceHolder: "Email")
+    }()
+    
+    private let passwordTextField: UITextField = {
+        var tf = Utilities().textField(withPlaceHolder: "Password")
+        tf.isSecureTextEntry = true
+        return tf
+    }()
+    
+    
+    private lazy var emailContainerView = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_mail_outline_white_2x-1"),textField: emailTextField)
+    private lazy var passwordContainerView = Utilities().inputContainerView(withImage: #imageLiteral(resourceName: "ic_lock_outline_white_2x"),textField: passwordTextField)
+    
+    /*private lazy var passwordContainerView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemPurple
+        view.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        let iv = UIImageView()
+        iv.image = #imageLiteral(resourceName: "ic_lock_outline_white_2x")
+        view.addSubview(iv)
+        iv.anchor(left: view.leftAnchor, bottom: view.bottomAnchor, paddingLeft: 8, paddingRight: 8)
+        iv.setDimensions(width: 24, height: 24)
+        
+        return view
+    }()*/
+    
+    //MARK: - Lifecycle
+    
+    override func viewDidLoad(){
+        super.viewDidLoad()
+        
+        configureUI()
+    }
+    
+    //MARK: - selector
+      
+      
+      //MARK: - Helpers
+    
+    func configureUI()
+    {
+        view.backgroundColor = .twitterBlue
+        navigationController?.navigationBar.barStyle = .black
+        navigationController?.navigationBar.isHidden = true
+        view.addSubview(logoImageView)
+        logoImageView.centerX(inView: view, topAnchor: view.safeAreaLayoutGuide.topAnchor)
+        logoImageView.setDimensions(width: 150, height: 150)
+        
+        let stack = UIStackView(arrangedSubviews: [emailContainerView, passwordContainerView])
+        stack.axis = .vertical
+        stack.spacing = 8
+        
+        view.addSubview(stack)
+        stack.anchor(top: logoImageView.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor,paddingLeft: 16, paddingRight: 16)
+    }
+    
+}
