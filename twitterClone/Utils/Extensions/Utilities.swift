@@ -40,4 +40,17 @@ class Utilities {
         tf.attributedPlaceholder = NSAttributedString(string: placeHolder, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white ])
         return tf
     }
+    
+    func attributedButton(_ firstPart: String,_ secondPart: String) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitleColor(.white, for: .normal)
+        let attributadTitle = NSMutableAttributedString(string: firstPart,
+                                                        attributes:[NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.white])
+        
+        attributadTitle.append(NSAttributedString(string: secondPart,attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 16),NSAttributedString.Key.foregroundColor: UIColor.white]))
+        
+        button.setAttributedTitle(attributadTitle, for: .normal)
+        
+        return button
+    }
 }
