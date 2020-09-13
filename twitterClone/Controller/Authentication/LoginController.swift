@@ -93,11 +93,25 @@ class LoginController: UIViewController {
     
     //MARK: - selector
       @objc func handleLogin(){
-          
+        guard let email = emailTextField.text else {return}
+        guard let password = passwordTextField.text else {return}
+        
+        AuthService.shared.logUserIn(withEmail: email, password: password) { (result, error) in
+            if let error = error {
+                print("ERROR LOGIN IN \(error.localizedDescription)")
+                return
+            }
+            
+            guard let window =  UIApplication.shared.windows.first(where: {$0.isKeyWindow}) else { return }
+            guard let tab = window.rootViewController as? MainTabController else { return }
+            tab.authenticateUserAndConfigureUI()
+            self.dismiss(animated: true, completion: nil)
+        }
       }
       
       @objc func handleShowSignUp(){
           let controller = RegistrationController()
+          navigationController?.pushViewController(controller, animated: true)
       }
       
       //MARK: - Helpers

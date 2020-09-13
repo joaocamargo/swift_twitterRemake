@@ -7,10 +7,24 @@
 //
 
 import UIKit
+import FirebaseAuth
+import Firebase
 
 class MainTabController: UITabBarController {
+       
     
     // MARK: - Properties
+    
+    var user: User? {
+        didSet{
+            print("User was set")
+            guard let nav = viewControllers?[0] as? UINavigationController else { return}
+            guard let feed = nav.viewControllers.first as? FeedController else { return }
+            
+            feed.user = user
+        }
+    }
+    
     let actionButton: UIButton = {
         let button = UIButton(type: .system)
         button.tintColor = .white
@@ -20,19 +34,60 @@ class MainTabController: UITabBarController {
         return button
     }()
 
+    //MARK: - API
+    
+    func fetchUser(){
+        UserService.shared.fetchUser() { (user) in
+            self.user = user
+            print(user.username)
+        }
+    }
+    
+    func authenticateUserAndConfigureUI(){
+        if Auth.auth().currentUser == nil {
+            print("User is not logged in")
+            DispatchQueue.main.async {
+                let nav = UINavigationController(rootViewController: LoginController())
+                nav.modalPresentationStyle = .fullScreen
+                self.present(nav,animated: true,completion: nil)
+            }
+            //perform
+        }
+        else{
+            configureViewControllers()
+            configureUI()
+            fetchUser()
+        }
+    }
+    
+    func signUserOut(){
+        do {
+            try Auth.auth().signOut()
+        } catch let error {
+            print(error)
+        }
+    }
+    
     
     //MARK: - Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureViewControllers()
-        configureUI()
+        
+        authenticateUserAndConfigureUI()
+        //signUserOut()
     }
+    
     
     //MARK: - selectors
     
     @objc func handleActionButtonTapped(){
         print("aaaa")
+        guard let user = user else { return }
+        let controller = UploadTweetController(user: user)
+        let nav = UINavigationController(rootViewController: controller)
+        nav.modalPresentationStyle = .fullScreen
+        present(nav,animated: true,completion: nil)
     }
     
     //MARK: - Helpers
