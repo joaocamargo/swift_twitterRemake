@@ -43,7 +43,7 @@
 		052777792503B26F00BCAD3B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		059BC5AA250C2FBF00AD5C4F /* UploadTweetController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadTweetController.swift; sourceTree = "<group>"; };
 		059BC5AC250D129A00AD5C4F /* CaptionTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaptionTextView.swift; sourceTree = "<group>"; };
-		059BC5AE250D56A600AD5C4F /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetService.swift; sourceTree = "<group>"; };
+		059BC5AE250D56A600AD5C4F /* TweetService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TweetService.swift; path = ../View/TweetService.swift; sourceTree = "<group>"; };
 		059BC5B0250E623600AD5C4F /* Tweet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		059BC5B2250ECC1F00AD5C4F /* TweetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TweetCell.swift; sourceTree = "<group>"; };
 		05B5EE0724FD885D00FF45DA /* twitterClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = twitterClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,7 +141,6 @@
 			isa = PBXGroup;
 			children = (
 				059BC5AC250D129A00AD5C4F /* CaptionTextView.swift */,
-				059BC5AE250D56A600AD5C4F /* TweetService.swift */,
 				059BC5B2250ECC1F00AD5C4F /* TweetCell.swift */,
 			);
 			path = View;
@@ -172,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				052777752501827400BCAD3B /* AuthService.swift */,
+				059BC5AE250D56A600AD5C4F /* TweetService.swift */,
 				0527777725019FB800BCAD3B /* UserService.swift */,
 			);
 			path = Api;
