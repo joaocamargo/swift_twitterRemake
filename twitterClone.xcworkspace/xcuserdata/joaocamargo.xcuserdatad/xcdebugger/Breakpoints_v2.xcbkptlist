@@ -8,7 +8,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "27B0DB86-5BAF-487B-838C-5842881B49AC"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "twitterClone/Controller/FeedController.swift"
@@ -24,7 +24,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "BA6D5156-2B5B-4F4E-B4B9-DBA970BF5427"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "twitterClone/Controller/FeedController.swift"
@@ -34,6 +34,54 @@
             endingLineNumber = "73"
             landmarkName = "configureLeftBarButton()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "CC5E613C-F487-4B37-AB35-FB8A3D892605"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "twitterClone/View/TweetService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "uploadTweet(caption:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "CC5E613C-F487-4B37-AB35-FB8A3D892605 - c09b3b2873aecddd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "twitterClone.TweetService.uploadTweet(caption: Swift.String, completion: (Swift.Optional&lt;Swift.Error&gt;, __C.FIRDatabaseReference) -&gt; ()) -&gt; ()"
+                  moduleName = "twitterClone"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/joaocamargo/macHD/GITHUB/swift_twitterRemake/twitterClone/View/TweetService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21"
+                  offsetFromSymbolStart = "1694">
+               </Location>
+               <Location
+                  uuid = "CC5E613C-F487-4B37-AB35-FB8A3D892605 - 9cc0d5df3b7d6517"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Optional&lt;Swift.Error&gt;, __C.FIRDatabaseReference) -&gt; () in twitterClone.TweetService.uploadTweet(caption: Swift.String, completion: (Swift.Optional&lt;Swift.Error&gt;, __C.FIRDatabaseReference) -&gt; ()) -&gt; ()"
+                  moduleName = "twitterClone"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/joaocamargo/macHD/GITHUB/swift_twitterRemake/twitterClone/View/TweetService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "22"
+                  endingLineNumber = "22"
+                  offsetFromSymbolStart = "265">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
