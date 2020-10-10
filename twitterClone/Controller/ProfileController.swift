@@ -46,7 +46,13 @@ class ProfileController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        fetchTweets()
+        fetchTweets()        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationController?.navigationBar.isHidden = false
+        navigationController?.navigationBar.barStyle = .default
     }
     
     //MARK: - API
@@ -102,6 +108,8 @@ extension ProfileController {
         return header
     }
 }
+
+
 
 extension ProfileController: ProfileHeaderDelegate {
     func handleDismissal() {

@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 protocol ProfileHeaderDelegate: class {
     func handleDismissal()
@@ -44,6 +45,17 @@ class ProfileHeader: UICollectionReusableView {
         button.setTitleColor(.twitterBlue, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.addTarget(self, action: #selector(handleEditProfileFollow), for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var logoutButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.setTitle("Logout", for: .normal)
+        button.layer.borderColor = UIColor.red.cgColor
+        button.layer.borderWidth = 1.25
+        button.setTitleColor(.twitterBlue, for: .normal)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+        button.addTarget(self, action: #selector(handleLogout), for: .touchUpInside)
         return button
     }()
     
@@ -128,6 +140,11 @@ class ProfileHeader: UICollectionReusableView {
         editProfileFollowButton.setDimensions(width: 100, height: 36)
         editProfileFollowButton.layer.cornerRadius = 36/2
         
+        addSubview(logoutButton)
+        logoutButton.anchor(top: editProfileFollowButton.bottomAnchor, right: rightAnchor,paddingTop: 12,paddingRight: 12)
+        logoutButton.setDimensions(width: 50, height: 50)
+        logoutButton.layer.cornerRadius = 50/2
+        
         addSubview(fullNameLabel)
         fullNameLabel.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, paddingTop: 2,paddingLeft: 12)
         
@@ -152,7 +169,8 @@ class ProfileHeader: UICollectionReusableView {
         addSubview(underlineView)
         underlineView.anchor(left: leftAnchor, bottom: bottomAnchor,width: frame.width/3, height: 2)
         
-        
+              
+   
     }
     
     required init?(coder: NSCoder) {
@@ -160,11 +178,17 @@ class ProfileHeader: UICollectionReusableView {
     }
     
     @objc func handleDismissal(){
+        
         delegate?.handleDismissal()
     }
     
     @objc func handleEditProfileFollow(){
         
+    }
+    
+    @objc func handleLogout(){
+        print("FAZER LOGOUT")
+        try! Auth.auth().signOut()
     }
     
     @objc func handleFollowersTapped() {
@@ -185,6 +209,11 @@ class ProfileHeader: UICollectionReusableView {
         
         fullNameLabel.text = user.fullname
         usernameLabel.text = viewModel.usernameText
+     
+        
+        if !user.isCurrentUser {
+            logoutButton.isHidden = true
+        }
     }
     
 }
