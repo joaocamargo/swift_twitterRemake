@@ -39,17 +39,26 @@ struct ProfileHeaderViewModel {
     }
     
     var actionButtonTitle: String {
+        
         if user.isCurrentUser{
             return "Edit Profile"
         }
-        else{
+        
+        if user.isFollowed {
+            return "Following"
+        }
+        
+        if !user.isFollowed {
             return "Follow"
         }
+        
+        return "Loading"
     }
     
     init(user: User) {
         self.user = user
-        self.usernameText = "@\(user.username)"
+        self.usernameText = "@\(user.username)"      
+        
     }
     
     fileprivate func attributedText(withValue value: Int, text: String) -> NSAttributedString {

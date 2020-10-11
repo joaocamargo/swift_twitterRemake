@@ -17,7 +17,7 @@ class ProfileController: UICollectionViewController {
     
     
     //MARK: - Properties
-    private let user: User
+    private var user: User
     
     //MARK: - LifeCycle
     
@@ -46,7 +46,15 @@ class ProfileController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureCollectionView()
-        fetchTweets()        
+        fetchTweets()
+        checkIfUserIsFollowed();
+    }
+    
+    func checkIfUserIsFollowed(){
+        UserService.shared.checkIfUserIsFollowed(uid: user.uid) { (isFollowing) in
+            self.user.isFollowed = isFollowing
+            self.collectionView.reloadData()            
+        }
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -112,6 +120,37 @@ extension ProfileController {
 
 
 extension ProfileController: ProfileHeaderDelegate {
+    func handleEditProfileFollow(_ header: ProfileHeader) {
+        
+        if user.isCurrentUser{
+            return
+        }
+        
+        if self.user.isFollowed {
+            UserService.shared.unFollowUser(uid: self.user.uid) { (error, ref) in
+                if let erro = error {
+                    print("ERRO \(erro.localizedDescription)")
+                }
+                
+                self.user.isFollowed = false
+                header.editProfileFollowButton.setTitle("Follow", for: .normal)
+                self.collectionView.reloadData()
+                
+            }
+        } else {
+            UserService.shared.followUser(uid: self.user.uid) { (error, ref) in
+                if let erro = error {
+                    print("ERRO \(erro.localizedDescription)")
+                }
+                header.editProfileFollowButton.setTitle("Following", for: .normal)
+                self.user.isFollowed = true
+                self.collectionView.reloadData()
+            }
+        }
+    }
+    
+    
+    
     func handleDismissal() {
         navigationController?.popViewController(animated: true)
     }

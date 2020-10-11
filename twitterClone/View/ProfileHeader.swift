@@ -12,6 +12,7 @@ import Firebase
 
 protocol ProfileHeaderDelegate: class {
     func handleDismissal()
+    func handleEditProfileFollow( _ header: ProfileHeader)
 }
 
 class ProfileHeader: UICollectionReusableView {
@@ -37,7 +38,7 @@ class ProfileHeader: UICollectionReusableView {
         return view
     }()
     
-    private lazy var editProfileFollowButton: UIButton = {
+    lazy var editProfileFollowButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Loading", for: .normal)
         button.layer.borderColor = UIColor.twitterBlue.cgColor
@@ -177,13 +178,12 @@ class ProfileHeader: UICollectionReusableView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    @objc func handleDismissal(){
-        
+    @objc func handleDismissal(){        
         delegate?.handleDismissal()
     }
     
     @objc func handleEditProfileFollow(){
-        
+        delegate?.handleEditProfileFollow(self)
     }
     
     @objc func handleLogout(){
@@ -221,6 +221,9 @@ class ProfileHeader: UICollectionReusableView {
 //MARK: - ProfileFilterDelegate
 
 extension ProfileHeader: ProfileFilterViewDelegate {
+    
+    
+    
     func filterView(_ view: ProfileFilterView, didSelect indexPath: IndexPath){
         guard let cell = view.collectionView.cellForItem(at: indexPath) as? ProfileFilterCell else { return }
         
