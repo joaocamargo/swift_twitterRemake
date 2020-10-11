@@ -97,8 +97,8 @@ extension FeedController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        //let controller = ProfileController(collectionViewLayout: UICollectionViewFlowLayout())
-        //navigationController?.pushViewController(controller, animated: true)
+        let controller = TweetController(tweet: tweets[indexPath.row])
+        navigationController?.pushViewController(controller, animated: true)
     }
     
 }

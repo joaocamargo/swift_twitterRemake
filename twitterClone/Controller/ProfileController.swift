@@ -48,6 +48,7 @@ class ProfileController: UICollectionViewController {
         configureCollectionView()
         fetchTweets()
         checkIfUserIsFollowed();
+        fetchUsersStats();
     }
     
     func checkIfUserIsFollowed(){
@@ -69,6 +70,15 @@ class ProfileController: UICollectionViewController {
         TweetService.shared.fetchTweets(forUser: user) { tweets in
             print("DEBUG: Api call completed twwets \(tweets)")
             self.tweets = tweets
+        }
+    }
+    
+    func fetchUsersStats() {
+        UserService.shared.fetchUsersStats(uid: user.uid) { stats in
+            self.user.stats = stats
+            self.collectionView.reloadData()
+            //print("DEBUG: Api call completed twwets \(tweets)")
+            //self.tweets = tweets
         }
     }
     
