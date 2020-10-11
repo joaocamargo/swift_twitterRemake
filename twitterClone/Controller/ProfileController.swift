@@ -124,27 +124,28 @@ extension ProfileController: ProfileHeaderDelegate {
         
         if user.isCurrentUser{
             return
-        }
-        
-        if self.user.isFollowed {
-            UserService.shared.unFollowUser(uid: self.user.uid) { (error, ref) in
-                if let erro = error {
-                    print("ERRO \(erro.localizedDescription)")
-                }
-                
-                self.user.isFollowed = false
-                header.editProfileFollowButton.setTitle("Follow", for: .normal)
-                self.collectionView.reloadData()
-                
-            }
         } else {
-            UserService.shared.followUser(uid: self.user.uid) { (error, ref) in
-                if let erro = error {
-                    print("ERRO \(erro.localizedDescription)")
+            
+            if self.user.isFollowed {
+                UserService.shared.unFollowUser(uid: self.user.uid) { (error, ref) in
+                    if let erro = error {
+                        print("ERRO \(erro.localizedDescription)")
+                    }
+                    
+                    self.user.isFollowed = false
+                    header.editProfileFollowButton.setTitle("Follow", for: .normal)
+                    self.collectionView.reloadData()
+                    
                 }
-                header.editProfileFollowButton.setTitle("Following", for: .normal)
-                self.user.isFollowed = true
-                self.collectionView.reloadData()
+            } else {
+                UserService.shared.followUser(uid: self.user.uid) { (error, ref) in
+                    if let erro = error {
+                        print("ERRO \(erro.localizedDescription)")
+                    }
+                    header.editProfileFollowButton.setTitle("Following", for: .normal)
+                    self.user.isFollowed = true
+                    self.collectionView.reloadData()
+                }
             }
         }
     }
