@@ -35,7 +35,7 @@ class TweetController: UICollectionViewController{
     
     
     func configureCollectionView(){
-        collectionView.backgroundColor = .systemPink
+        collectionView.backgroundColor = .white
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuseCellIdentifier)
         collectionView.register(TweetHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier)
     }
@@ -60,7 +60,7 @@ extension TweetController {
 extension TweetController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 350)
+        return CGSize(width: view.frame.width, height: 250)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -71,7 +71,7 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
 extension TweetController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: reuseHeaderIdentifier, for: indexPath) as! TweetHeader
-        //header = user
+        header.tweet = tweet
         //header.delegate = self
         return header
     }

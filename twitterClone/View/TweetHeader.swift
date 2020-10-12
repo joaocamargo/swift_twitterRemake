@@ -11,6 +11,12 @@ import UIKit
 
 class TweetHeader: UICollectionReusableView {
     
+    var tweet: Tweet? {
+        didSet {
+            configure()
+        }
+    }
+    
     //MARK: - properties
     private lazy var profileImageView : UIImageView = {
         let iv = UIImageView()
@@ -70,21 +76,9 @@ class TweetHeader: UICollectionReusableView {
         return button
     }()
     
-    private lazy  var retweetsLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = UIFont.systemFont(ofSize: 14)
-        lbl.text = "0 retweets"
-        //lbl.addTarget(self, action: #selector(handleRetweetsTapped), for: .touchUpInside)
-        return lbl
-    }()
+    private lazy  var retweetsLabel = UILabel()
     
-    private lazy  var likesLabel: UILabel = {
-        let lbl = UILabel()
-        lbl.font = UIFont.systemFont(ofSize: 14)
-        lbl.text = "0 likes"
-        //btn.addTarget(self, action: #selector(handleLikesTapped), for: .touchUpInside)
-        return lbl
-    }()
+    private lazy  var likesLabel = UILabel()
     
     private lazy var statsView: UIView = {
         let view = UIView()
@@ -156,14 +150,14 @@ class TweetHeader: UICollectionReusableView {
         captionLabel.anchor(top: stack.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 20,paddingLeft: 16, paddingRight: 16)
         
         addSubview(dateLabel)
-        dateLabel.anchor(top: captionLabel.bottomAnchor, left: leftAnchor,paddingTop: 20, paddingLeft: 16)
+        dateLabel.anchor(top: captionLabel.bottomAnchor, left: leftAnchor,paddingTop: 5, paddingLeft: 16)
         
         addSubview(optionsButton)
         optionsButton.centerY(inView: stack)
         optionsButton.anchor(right: rightAnchor, paddingRight: 8)
         
         addSubview(statsView)
-        statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor,right: rightAnchor,paddingTop: 20, height: 40)
+        statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor,right: rightAnchor,paddingTop: 10, height: 40)
         
         let actionStack = UIStackView(arrangedSubviews: [commentButton,retweetButton,likeButton, shareButton])
         actionStack.spacing = 72
@@ -176,6 +170,19 @@ class TweetHeader: UICollectionReusableView {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    //MARK: - Functions
+    func configure(){
+        guard let tweet = tweet else { return }
+        let viewModel = TweetViewModel(tweet: tweet)
+        captionLabel.text = tweet.caption
+        fullNameLabel.text = tweet.user.fullname
+        usernameLabel.text = viewModel.usernameText
+        profileImageView.sd_setImage(with: viewModel.profileImageUrl)
+        dateLabel.text = viewModel.headerTimestamp
+        retweetsLabel.attributedText = viewModel.retweetAttributedString
+        likesLabel.attributedText = viewModel.likesAttributedString
     }
     
     //MARK: - selectors
