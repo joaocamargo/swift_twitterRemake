@@ -134,8 +134,7 @@ class TweetHeader: UICollectionReusableView {
     //MARK: - lifecycle
     override init(frame: CGRect){
         super.init(frame: frame)
-        backgroundColor = .white
-        
+        backgroundColor = .red
         let labelStack = UIStackView(arrangedSubviews: [fullNameLabel,usernameLabel])
         labelStack.axis = .vertical
         labelStack.spacing = -6
@@ -147,24 +146,26 @@ class TweetHeader: UICollectionReusableView {
         stack.anchor(top: topAnchor, left: leftAnchor, paddingTop: 16, paddingLeft: 16)
         
         addSubview(captionLabel)
-        captionLabel.anchor(top: stack.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 20,paddingLeft: 16, paddingRight: 16)
+        captionLabel.anchor(top: stack.bottomAnchor, left: leftAnchor, right: rightAnchor, paddingTop: 12,paddingLeft: 16, paddingRight: 16)
         
         addSubview(dateLabel)
-        dateLabel.anchor(top: captionLabel.bottomAnchor, left: leftAnchor,paddingTop: 5, paddingLeft: 16)
+        dateLabel.anchor(top: captionLabel.bottomAnchor, left: leftAnchor,paddingTop: 20, paddingLeft: 16)//, height: 20)
         
         addSubview(optionsButton)
         optionsButton.centerY(inView: stack)
         optionsButton.anchor(right: rightAnchor, paddingRight: 8)
         
         addSubview(statsView)
-        statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor,right: rightAnchor,paddingTop: 10, height: 40)
+        statsView.anchor(top: dateLabel.bottomAnchor, left: leftAnchor,right: rightAnchor,paddingTop: 12, height: 40)
         
         let actionStack = UIStackView(arrangedSubviews: [commentButton,retweetButton,likeButton, shareButton])
         actionStack.spacing = 72
         //actionStack.distribution = .equalSpacing
         addSubview(actionStack)
         actionStack.centerX(inView: self)
-        actionStack.anchor(bottom: bottomAnchor, paddingBottom: 12)
+        //actionStack.anchor(bottom: bottomAnchor, paddingBottom: 12)
+        actionStack.anchor(top: statsView.bottomAnchor,paddingTop: 12)
+        
         
     }
     

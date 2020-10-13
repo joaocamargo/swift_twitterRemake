@@ -9,15 +9,15 @@
 import Foundation
 import UIKit
 
+
+
 class UploadTweetController : UIViewController{
     
     private let user: User
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        configureUI()
-    }
+    private let config: UploadTweetConfiguration
     
+    private lazy var viewModel = UploadTweetViewModel(config: config)
        
     // MARK: Properties
     private lazy var actionButton: UIButton = {
@@ -44,6 +44,15 @@ class UploadTweetController : UIViewController{
         return iv
     }()
     
+    private lazy var replyLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 16)
+        label.textColor = .lightGray
+        label.text = "replying to someone"
+        label.widthAnchor.constraint(equalToConstant: view.frame.width).isActive = true
+        return label
+    }()
+    
     private let captionTextView = CaptionTextView()
      
     //private let
@@ -51,13 +60,14 @@ class UploadTweetController : UIViewController{
         
     // MARK: selector
     @objc func handleCancel(){
+        //navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
     
     @objc func handleUploadTweet(){
         print("hahshs")
         guard let caption = captionTextView.text else { return }
-        TweetService.shared.uploadTweet(caption: caption) { (error, ref) in
+        TweetService.shared.uploadTweet(caption: caption, type: config) { (error, ref) in
             if let error = error {
                 print(error)
                 return
@@ -66,12 +76,23 @@ class UploadTweetController : UIViewController{
         }
     }
     
-
-    
-    
     // MARK: LifeCycle
-    init(user: User){
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        configureUI()
+        
+        switch config {
+        case .tweet:
+            print("Config is tweet")
+        case .reply(let tweet):
+            print("Config is reply of: \(tweet.caption)")
+        }
+    }
+    
+    init(user: User, config: UploadTweetConfiguration){
         self.user = user
+        self.config = config
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -89,9 +110,16 @@ class UploadTweetController : UIViewController{
         view.backgroundColor = .white
         configureNavigationBar()
         
-        let stack = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
-        stack.axis = .horizontal
+        let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageView, captionTextView])
+        imageCaptionStack.axis = .horizontal
+        imageCaptionStack.spacing = 12
+        imageCaptionStack.alignment = .leading
+        
+        let stack = UIStackView(arrangedSubviews: [replyLabel,imageCaptionStack])
+        stack.axis = .vertical
+        //stack.alignment = .leading
         stack.spacing = 12
+        
         
         view.addSubview(stack)
         stack.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor,right: view.rightAnchor, paddingTop: 16, paddingLeft: 16, paddingRight: 16)
@@ -100,10 +128,16 @@ class UploadTweetController : UIViewController{
         profileImageView.sd_setImage(with: user.profileImageUrl, completed: nil)
         print("DEBUG: user is \(user.username)")
         
-
+        actionButton.setTitle(viewModel.actionButtonTitle, for: .normal)
+        captionTextView.placeholder.text = viewModel.placeholderText
         
+        replyLabel.isHidden = !viewModel.shouldShowReplyLabel
         
+        guard let replyText = viewModel.replyText else { return }
+        replyLabel.text = replyText
     }
+    
+    
     
     func configureNavigationBar() {
         

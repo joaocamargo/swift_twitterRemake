@@ -75,4 +75,34 @@ struct TweetViewModel {
         return attributedTitle
     }
     
+    func size(forWidth width: CGFloat) -> CGSize {
+        let measurementLbael = UILabel()
+        measurementLbael.text = tweet.caption
+        
+        measurementLbael.numberOfLines = 0
+        measurementLbael.lineBreakMode = .byWordWrapping
+        measurementLbael.translatesAutoresizingMaskIntoConstraints = false
+        measurementLbael.widthAnchor.constraint(equalToConstant: width).isActive = true
+        
+        
+        // You have to call layoutIfNeeded() if you are using autoLayout
+        //label.layoutIfNeeded()
+        let myText = measurementLbael.text! as NSString
+        let rect = CGSize(width: measurementLbael.bounds.width, height: CGFloat.greatestFiniteMagnitude)
+        let labelSize = myText.boundingRect(with: rect, options: .usesLineFragmentOrigin, attributes: [NSAttributedString.Key.font: measurementLbael.font as Any], context: nil)
+        
+        print("HEIGHT: novo label size -> \(CGFloat(labelSize.height)) -> line height  \(measurementLbael.font.lineHeight)")
+        print("HEIGHT: novo -> \(ceil(CGFloat(labelSize.height) / measurementLbael.font.lineHeight))")
+        print("HEIGHT: extension -> \(measurementLbael.getSize(constrainedWidth: measurementLbael.bounds.width))")
+        
+        return measurementLbael.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
+    }
+    
+}
+
+
+extension UILabel {
+    func getSize(constrainedWidth: CGFloat) -> CGSize {
+        return systemLayoutSizeFitting(CGSize(width: constrainedWidth, height: UIView.layoutFittingCompressedSize.height), withHorizontalFittingPriority: .required, verticalFittingPriority: .fittingSizeLevel)
+    }
 }
