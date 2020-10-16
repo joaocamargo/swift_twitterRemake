@@ -17,6 +17,8 @@ class TweetController: UICollectionViewController{
     //MARK: - Properties
     private let tweet: Tweet
     
+    private let actionSheet: ActionSheetLauncher
+    
     private var replies = [Tweet](){
         didSet {
             collectionView.reloadData()
@@ -27,8 +29,10 @@ class TweetController: UICollectionViewController{
     
     init(tweet: Tweet){
         self.tweet = tweet
+        self.actionSheet = ActionSheetLauncher(user: tweet.user)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
-       // var layout = UICollectionViewFlowLayout()
+
+        // var layout = UICollectionViewFlowLayout()
        // layout.sectionInset = UIEdgeInsets(top: 40, left: 0, bottom: 0, right: 0)
        // collectionView!.collectionViewLayout = layout
        
@@ -85,7 +89,7 @@ extension TweetController: UICollectionViewDelegateFlowLayout {
         let viewModel = TweetViewModel(tweet: tweet)
         let height = viewModel.size(forWidth: view.frame.width).height
         print("HEIGHT: \(height) + 250 = \(height+250)")
-        return CGSize(width: view.frame.width, height: height + 250)
+        return CGSize(width: view.frame.width, height: height + 300)
         
         //return CGSize(width: view.frame.width, height: 250)
     }
@@ -99,7 +103,14 @@ extension TweetController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: reuseHeaderIdentifier, for: indexPath) as! TweetHeader
         header.tweet = tweet
+        header.delegate = self
         //header.delegate = self
         return header
+    }
+}
+
+extension TweetController: TweetHeaderDelegate {
+    func showActionSheet() {
+        actionSheet.show()
     }
 }

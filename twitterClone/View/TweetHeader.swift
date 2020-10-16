@@ -9,6 +9,10 @@
 import Foundation
 import UIKit
 
+protocol TweetHeaderDelegate: class {
+    func showActionSheet()
+}
+
 class TweetHeader: UICollectionReusableView {
     
     var tweet: Tweet? {
@@ -16,6 +20,8 @@ class TweetHeader: UICollectionReusableView {
             configure()
         }
     }
+    
+    weak var delegate: TweetHeaderDelegate?
     
     //MARK: - properties
     private lazy var profileImageView : UIImageView = {
@@ -134,7 +140,7 @@ class TweetHeader: UICollectionReusableView {
     //MARK: - lifecycle
     override init(frame: CGRect){
         super.init(frame: frame)
-        backgroundColor = .red
+        //backgroundColor = .red
         let labelStack = UIStackView(arrangedSubviews: [fullNameLabel,usernameLabel])
         labelStack.axis = .vertical
         labelStack.spacing = -6
@@ -195,7 +201,7 @@ class TweetHeader: UICollectionReusableView {
     
     @objc func showActionSheet(){
         print("show sheet")
-
+        delegate?.showActionSheet()
     }
     
     @objc func handleRetweetTapped(){
