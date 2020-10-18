@@ -107,7 +107,7 @@ class TweetCell: UICollectionViewCell{
         stack.spacing = 4
         
         addSubview(stack)
-        stack.anchor(top: profileImageView.topAnchor, left: profileImageView.rightAnchor, right: rightAnchor, paddingLeft: 12, paddingRight: 12)
+        stack.anchor(top: profileImageView.topAnchor, left: profileImageView.rightAnchor, right: rightAnchor, paddingLeft: 12, paddingRight: 16)
         
         infoLabel.font = UIFont.systemFont(ofSize: 14)
         infoLabel.text = "Joao Camargo"

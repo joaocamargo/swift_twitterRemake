@@ -52,14 +52,11 @@ class FeedController: UICollectionViewController{
         imageView.contentMode = .scaleAspectFit
         imageView.setDimensions(width: 44, height: 44)
         navigationItem.titleView = imageView
-        
-
     }
     
     func configureLeftBarButton(){
         
         guard let user = user else { return }
-        
         
         let profileImageView = UIImageView()
         profileImageView.backgroundColor = .twitterBlue
@@ -107,8 +104,8 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
         
         let tweet = tweets[indexPath.row]
         let viewModel = TweetViewModel(tweet: tweet)
-        let height = viewModel.size(forWidth: view.frame.width).height
-        return CGSize(width: view.frame.width, height: height + 72)
+        let height = viewModel.size(forWidth: view.frame.width, font: UIFont.systemFont(ofSize: 14)).height
+        return CGSize(width: view.frame.width, height: height + 88)
     }
 }
 
