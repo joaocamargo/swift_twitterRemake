@@ -14,6 +14,12 @@ class ActionSheetCell: UITableViewCell {
     
     //MARK: - properties
     
+    var option: ActionSheetOptions? {
+        didSet {
+            configure()
+        }
+    }
+    
     private let optionImageView: UIImageView = {
        let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
@@ -48,7 +54,11 @@ class ActionSheetCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - helpers
     
+    func configure(){
+        titleLabel.text = option?.description
+    }
     
     
 }

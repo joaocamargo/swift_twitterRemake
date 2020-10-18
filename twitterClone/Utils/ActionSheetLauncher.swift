@@ -11,6 +11,10 @@ import UIKit
 
 private let reuseIdentifier = "ActionSheetCell"
 
+protocol ActionSheetLauncherDelegate: class {
+    func didSelect(option: ActionSheetOptions)
+}
+
 public class ActionSheetLauncher: NSObject{
     
     
@@ -19,6 +23,9 @@ public class ActionSheetLauncher: NSObject{
     private let user: User
     private let tableView =  UITableView()
     private var window: UIWindow?
+    private lazy var viewModel = ActionSheetViewModel(user: user)
+    weak var delegate: ActionSheetLauncherDelegate?
+    private var tableViewHeight: CGFloat?
     
     private lazy var blackView: UIView = {
        let view = UIView()
@@ -56,6 +63,7 @@ public class ActionSheetLauncher: NSObject{
     init(user: User){
         
         self.user = user
+        print("DEBUG: 3 - Usuario está sendo seguido: \(user.isFollowed)")
         super.init()
         configureTableView()
 
@@ -71,12 +79,13 @@ public class ActionSheetLauncher: NSObject{
 
         
         window.addSubview(tableView)
-        let height = CGFloat(3 * 60) + 100
+        let height = CGFloat(viewModel.option.count * 60) + 100
+        self.tableViewHeight = height
         tableView.frame = CGRect(x: 0, y: window.frame.height, width: window.frame.width, height: height)
         
         UIView.animate(withDuration: 0.5) {
             self.blackView.alpha = 1
-            self.tableView.frame.origin.y -= height
+            self.showTableView(true)
         }
     }
     
@@ -102,20 +111,33 @@ public class ActionSheetLauncher: NSObject{
         }
     }
     
+    //MARK: - helpers
+    func showTableView(_ shouldShow: Bool){
+        guard let window = window else {return}
+        guard let height = tableViewHeight else { return }
+        let y = shouldShow ? window.frame.height - height : window.frame.height
+        tableView.frame.origin.y = y
+    }
+    
 }
+
+//MARK: - table view datasource
 
 extension ActionSheetLauncher: UITableViewDataSource{
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return viewModel.option.count
     }
     
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ActionSheetCell
+        cell.option = viewModel.option[indexPath.row]
         return cell
     }
     
 }
+
+//MARK: - tablewviewdelegate
 
 extension ActionSheetLauncher: UITableViewDelegate{
     
@@ -125,5 +147,20 @@ extension ActionSheetLauncher: UITableViewDelegate{
     
     public func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 60
+    }
+    
+    public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let option = viewModel.option[indexPath.row]
+        
+        UIView.animate(withDuration: 0.5, animations: {
+            self.blackView.alpha = 0
+            self.showTableView(false)
+        }) { _ in
+            self.delegate?.didSelect(option: option)
+        }
+        
+        delegate?.didSelect(option: option)
+        print("Selected option: \(option.description)")
+        
     }
 }

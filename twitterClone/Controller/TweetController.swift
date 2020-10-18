@@ -17,7 +17,7 @@ class TweetController: UICollectionViewController{
     //MARK: - Properties
     private let tweet: Tweet
     
-    private let actionSheet: ActionSheetLauncher
+    private var actionSheet: ActionSheetLauncher!
     
     private var replies = [Tweet](){
         didSet {
@@ -29,7 +29,7 @@ class TweetController: UICollectionViewController{
     
     init(tweet: Tweet){
         self.tweet = tweet
-        self.actionSheet = ActionSheetLauncher(user: tweet.user)
+        //self.actionSheet = ActionSheetLauncher(user: tweet.user)
         super.init(collectionViewLayout: UICollectionViewFlowLayout())
 
         // var layout = UICollectionViewFlowLayout()
@@ -65,7 +65,11 @@ class TweetController: UICollectionViewController{
         collectionView.register(TweetHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier)
     }
     
-    
+    func showActionSheet(user: User){
+        actionSheet = ActionSheetLauncher(user: user) // tweet.user)
+        self.actionSheet.delegate = self
+        self.actionSheet.show()
+    }
     
 }
 
@@ -111,6 +115,35 @@ extension TweetController {
 
 extension TweetController: TweetHeaderDelegate {
     func showActionSheet() {
-        actionSheet.show()
+        
+        if tweet.user.isCurrentUser {
+            showActionSheet(user: tweet.user)
+        } else {
+            UserService.shared.checkIfUserIsFollowed(uid: tweet.user.uid) { (isFollowed) in
+                var user = self.tweet.user
+                user.isFollowed = isFollowed
+                self.showActionSheet(user: user)
+            }
+        }
+    }
+}
+
+extension TweetController: ActionSheetLauncherDelegate {
+    func didSelect(option: ActionSheetOptions) {
+        print("esse puto")
+        switch option {
+        case .follow(let user):
+            UserService.shared.followUser(uid: user.uid) { (error, ref) in
+                print("did unfollow \(user)")
+            }
+        case .unfollow(let user):
+            UserService.shared.unFollowUser(uid: user.uid) { (error, ref) in
+                print("did unfollow \(user)")
+            }
+        case .report:
+            print("report")
+        case .delete:
+            print("delete")
+        }
     }
 }

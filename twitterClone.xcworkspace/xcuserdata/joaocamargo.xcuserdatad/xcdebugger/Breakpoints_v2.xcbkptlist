@@ -120,7 +120,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "C0A34E5E-2DB3-41CF-A1F4-DD189031CA49"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "twitterClone/ViewModel/ProfileHeaderViewModel.swift"
@@ -142,9 +142,167 @@
             filePath = "twitterClone/Controller/TweetController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "92"
-            endingLineNumber = "92"
+            startingLineNumber = "96"
+            endingLineNumber = "96"
             landmarkName = "collectionView(_:layout:referenceSizeForHeaderInSection:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "937AFA0C-DFCD-44CD-965F-E096B67EC43C"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "twitterClone/ViewModel/ActionSheetViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "option"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "D37914EE-3DDF-4307-91E6-52CECA4F252E"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "twitterClone/ViewModel/ActionSheetViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "20"
+            endingLineNumber = "20"
+            landmarkName = "option"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A600BC8E-D425-4F61-99C5-E4D9159BED1D"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "twitterClone/ViewModel/ActionSheetViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "option"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C91E69D9-AE63-4516-85BD-20330FF88051"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "twitterClone/Utils/ActionSheetLauncher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26"
+            landmarkName = "ActionSheetLauncher"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  uuid = "C91E69D9-AE63-4516-85BD-20330FF88051 - 3cc48c4db5a9d502"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "twitterClone.ActionSheetLauncher.(viewModel in _E85B62FDF05559F1E70E5BE18809F491).getter : twitterClone.ActionSheetViewModel"
+                  moduleName = "twitterClone"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/joaocamargo/macHD/GITHUB/swift_twitterRemake/twitterClone/Utils/ActionSheetLauncher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "459">
+               </Location>
+               <Location
+                  uuid = "C91E69D9-AE63-4516-85BD-20330FF88051 - 3cc48c4db5a9d502"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "twitterClone.ActionSheetLauncher.(viewModel in _E85B62FDF05559F1E70E5BE18809F491).setter : twitterClone.ActionSheetViewModel"
+                  moduleName = "twitterClone"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/joaocamargo/macHD/GITHUB/swift_twitterRemake/twitterClone/Utils/ActionSheetLauncher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "257">
+               </Location>
+               <Location
+                  uuid = "C91E69D9-AE63-4516-85BD-20330FF88051 - 74701432e7e1607e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "twitterClone.ActionSheetLauncher.(viewModel in _E85B62FDF05559F1E70E5BE18809F491).modify : twitterClone.ActionSheetViewModel"
+                  moduleName = "twitterClone"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/joaocamargo/macHD/GITHUB/swift_twitterRemake/%3Ccompiler-generated%3E"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "29">
+               </Location>
+               <Location
+                  uuid = "C91E69D9-AE63-4516-85BD-20330FF88051 - fdd40cd5c888dad"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "twitterClone.ActionSheetLauncher.(viewModel in _E85B62FDF05559F1E70E5BE18809F491).modify : twitterClone.ActionSheetViewModel with unmangled suffix &quot;.resume.0&quot;"
+                  moduleName = "twitterClone"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/joaocamargo/macHD/GITHUB/swift_twitterRemake/twitterClone/Utils/ActionSheetLauncher.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "26"
+                  endingLineNumber = "26"
+                  offsetFromSymbolStart = "17">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8C95B9BB-D870-412B-9978-38583E3D0F31"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "twitterClone/Utils/ActionSheetLauncher.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "65"
+            endingLineNumber = "65"
+            landmarkName = "init(user:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "C17455FC-8197-4292-AAA6-8E514EF3CD13"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "twitterClone/Controller/TweetController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "69"
+            endingLineNumber = "69"
+            landmarkName = "showActionSheet(user:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
