@@ -61,6 +61,14 @@ struct TweetViewModel {
         return title
     }
     
+    var likeButtonTintColor: UIColor {
+        return tweet.didLike ? .red : .lightGray
+    }
+    
+    var likeButtonImage: UIImage {
+        return tweet.didLike ? UIImage(named: "like_filled")! : UIImage(named: "like")!
+    }
+    
     init(tweet: Tweet){
         self.tweet = tweet
         self.user = tweet.user
@@ -84,7 +92,7 @@ struct TweetViewModel {
         measurementLbael.translatesAutoresizingMaskIntoConstraints = false
         measurementLbael.widthAnchor.constraint(equalToConstant: width).isActive = true
         let size = measurementLbael.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize)
-        print("HEIGHT: SIZE: \(size)")
+        //print("HEIGHT: SIZE: \(size)")
         return size
     }
     

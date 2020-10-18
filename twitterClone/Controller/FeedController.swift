@@ -43,6 +43,15 @@ class FeedController: UICollectionViewController{
     
     //MARK: - Helpers
     
+    func checkIfUserLikedTweets(tweets: [Tweet]){
+        for (index, tweet) in tweets.enumerated() {
+            TweetService.shared.checkIfUserLikedTweet(tweet) { (didLike) in
+                guard didLike == true else { return }
+                self.tweets[index].didLike = true
+            }
+        }
+    }
+    
     func configureUI(){
         view.backgroundColor = .white
         collectionView.backgroundColor = .white
@@ -77,6 +86,7 @@ class FeedController: UICollectionViewController{
         TweetService.shared.fetchTweets { tweets in
             print(tweets)
             self.tweets = tweets
+            self.checkIfUserLikedTweets(tweets: tweets)
         }
     }
 }
@@ -110,6 +120,21 @@ extension FeedController: UICollectionViewDelegateFlowLayout {
 }
 
 extension FeedController: TweetCellDelegate {
+    func handleLikeTapped(_ cell: TweetCell) {
+        guard let tweet = cell.tweet else { return }
+        
+        TweetService.shared.likeTweet(tweet: tweet) { (err, ref) in
+            cell.tweet?.didLike.toggle()
+            let likes = tweet.didLike ? tweet.likes - 1 : tweet.likes + 1
+            cell.tweet?.likes = likes
+            
+            //notify only if it is a like
+            guard !tweet.didLike else { return }
+            NotificationService.shared.uploadNotification(type: .like, tweet: tweet)
+        }     
+        
+    }
+    
     func handleReplyTapped(_ cell: TweetCell) {
         guard let tweet = cell.tweet else { return }
         let user = tweet.user
