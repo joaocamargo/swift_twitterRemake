@@ -50,21 +50,17 @@ struct TweetService {
     func fetchTweets(forUser User: User, completion: @escaping([Tweet]) -> Void) {
         
         var tweets = [Tweet]()
+        print("DEBUG: fetchTweets of USER: \(User.uid)")
         
         REF_USERS_TWEETS.child(User.uid).observe(.childAdded) { (snapshot) in
-            let tweetID = snapshot.key
-            
-            REF_TWEETS.child(tweetID).observeSingleEvent(of: .value) { (snapshot) in
-                guard let dictionary = snapshot.value as? [String : AnyObject] else { return }
-                guard let uid = dictionary["uid"] as? String else { return }
-                let tweetID = snapshot.key
-                
-                UserService.shared.fetchUser(uid: uid) { user in
-                    let tweet = Tweet(user: user, tweetId: tweetID, dictionary: dictionary)
-                    tweets.append(tweet)
-                    completion(tweets)
-                }
+        let tweetID = snapshot.key
+            print("DEBUG: loading of tweet: \(tweetID)")
+
+            self.fetchTweet(withTweetID: tweetID) { (tweet) in
+                tweets.append(tweet)
+                completion(tweets)
             }
+            
         }
     }
     
@@ -83,6 +79,22 @@ struct TweetService {
             }
         }
         
+    }
+    
+    
+    func fetchLikes(forUser user: User, completion: @escaping([Tweet]) -> Void){
+        var tweets = [Tweet]()
+        
+        REF_USER_LIKES.child(user.uid).observe(.childAdded) { (snapshot) in
+            let tweetID = snapshot.key
+            
+            self.fetchTweet(withTweetID: tweetID) { (likeTweet) in
+                var tweet = likeTweet
+                tweet.didLike = true
+                tweets.append(tweet)
+                completion(tweets)
+            }
+        }
     }
     
     func likeTweet(tweet: Tweet, completion: @escaping(DatabaseCompletion)) {
@@ -110,6 +122,20 @@ struct TweetService {
         
         REF_USER_LIKES.child(uid).child(tweet.tweetId).observeSingleEvent(of:  .value) { (snapshot) in
             completion(snapshot.exists())
+        }
+    }
+    
+    func fetchTweet(withTweetID tweetID: String, completion: @escaping(Tweet) -> Void) {
+        REF_TWEETS.child(tweetID).observeSingleEvent(of: .value) { (snapshot) in
+            guard let dictionary = snapshot.value as? [String: Any] else { return }
+            guard let uid = dictionary["uid"] as? String else { return }
+            let tweetID = snapshot.key
+            
+            UserService.shared.fetchUser(uid: uid) { user in
+                let tweet = Tweet(user: user, tweetId: tweetID, dictionary: dictionary)
+                print("DEBUG: RETORNANDO TWEET \(tweetID)")
+                completion(tweet)
+            }
         }
     }
     

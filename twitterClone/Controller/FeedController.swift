@@ -61,6 +61,7 @@ class FeedController: UICollectionViewController{
         imageView.contentMode = .scaleAspectFit
         imageView.setDimensions(width: 44, height: 44)
         navigationItem.titleView = imageView
+        collectionView.contentInset.top = 10
     }
     
     func configureLeftBarButton(){

@@ -19,6 +19,35 @@ class ProfileController: UICollectionViewController {
     //MARK: - Properties
     private var user: User
     
+    private var selectedFilter: ProfileFilterOptions = .tweets {
+        didSet{
+            collectionView.reloadData()
+        }
+    }
+    
+    private var tweets = [Tweet]() /*{
+        didSet {
+            collectionView.reloadData()
+        }
+    }*/
+    
+    private var likedTweets = [Tweet]()
+    
+    private var replies = [Tweet]()
+    
+    private var currentDataSource: [Tweet] {
+        switch selectedFilter {
+        case .tweets:
+            return tweets
+        case .replies:
+            return replies
+        case .likes:
+            return likedTweets
+        }
+    }
+    
+    
+    
     //MARK: - LifeCycle
     
     init(user: User){
@@ -35,6 +64,9 @@ class ProfileController: UICollectionViewController {
         collectionView.contentInsetAdjustmentBehavior = .never
         collectionView.register(TweetCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.register(ProfileHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: reuseHeaderIdentifier)
+        
+        guard let tabHeight = tabBarController?.tabBar.frame.height else { return }
+        collectionView.contentInset.bottom = tabHeight + 10
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,6 +81,7 @@ class ProfileController: UICollectionViewController {
         fetchTweets()
         checkIfUserIsFollowed();
         fetchUsersStats();
+        fetchLikeTweets()
     }
     
     func checkIfUserIsFollowed(){
@@ -66,10 +99,18 @@ class ProfileController: UICollectionViewController {
     
     //MARK: - API
     
+    func fetchLikeTweets(){
+        TweetService.shared.fetchLikes(forUser: user) { (tweets) in
+            self.likedTweets = tweets
+        }
+    }
+    
     func fetchTweets() {
+        print("DEBUG: Api call completed user: \(user.email)")
         TweetService.shared.fetchTweets(forUser: user) { tweets in
-            print("DEBUG: Api call completed twwets \(tweets)")
+            print("DEBUG: Api call completed tweets \(tweets.description)")
             self.tweets = tweets
+            self.collectionView.reloadData()
         }
     }
     
@@ -86,21 +127,16 @@ class ProfileController: UICollectionViewController {
     
     
     //MARK: - Properties
-    private var tweets = [Tweet](){
-        didSet{
-            collectionView.reloadData()
-        }
-    }
 }
 
 extension ProfileController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return tweets.count
+        return currentDataSource.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
-        cell.tweet = tweets[indexPath.row]
+        cell.tweet = currentDataSource[indexPath.row]
         return cell
     }
     
@@ -114,7 +150,11 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.frame.width, height: 120)
+        
+        let tweet = tweets[indexPath.row]
+        let viewModel = TweetViewModel(tweet: tweet)
+        let height = viewModel.size(forWidth: view.frame.width, font: UIFont.systemFont(ofSize: 14)).height
+        return CGSize(width: view.frame.width, height: height + 88)
     }
 }
 
@@ -130,6 +170,11 @@ extension ProfileController {
 
 
 extension ProfileController: ProfileHeaderDelegate {
+    func didSelect(filter: ProfileFilterOptions) {
+        print("Debug did select filter \(filter.description)")
+        self.selectedFilter = filter
+    }
+    
     func handleEditProfileFollow(_ header: ProfileHeader) {
         
         if user.isCurrentUser{
