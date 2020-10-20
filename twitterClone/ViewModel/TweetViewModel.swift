@@ -9,6 +9,9 @@ import UIKit
 import Foundation
 
 struct TweetViewModel {
+    
+    //MARK: - properties
+    
     let tweet: Tweet
     let user: User
     
@@ -68,6 +71,17 @@ struct TweetViewModel {
     var likeButtonImage: UIImage {
         return tweet.didLike ? UIImage(named: "like_filled")! : UIImage(named: "like")!
     }
+    
+    var shouldHideReplyLabel: Bool {
+        return !tweet.isReply
+    }
+    
+    var replyText: String? {
+        guard let replyUser = tweet.replyingTo else { return nil}
+        return "↩︎ in reply to @\(replyUser)"
+    }
+    
+    //MARK: - init lifecycle
     
     init(tweet: Tweet){
         self.tweet = tweet

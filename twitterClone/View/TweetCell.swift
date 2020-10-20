@@ -30,6 +30,8 @@ class TweetCell: UICollectionViewCell{
     
     weak var delegate: TweetCellDelegate?
     
+    private lazy var topReferenceIsTopAnchor = true
+    
     private lazy var profileImageView : UIImageView = {
         let iv = UIImageView()
         iv.contentMode = .scaleAspectFit
@@ -43,6 +45,13 @@ class TweetCell: UICollectionViewCell{
         iv.isUserInteractionEnabled = true
         
         return iv
+    }()
+    
+    private let replyLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .lightGray
+        label.font = UIFont.systemFont(ofSize: 12)
+        return label
     }()
     
     private let captionLabel: UILabel = {
@@ -99,9 +108,15 @@ class TweetCell: UICollectionViewCell{
         super.init(frame: frame)
         backgroundColor = .white
         
-        addSubview(profileImageView)
-        profileImageView.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 8)
+//        addSubview(replyLabel)
+//        replyLabel.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 8)
         
+        addSubview(profileImageView)
+        
+        print("DEBUGAA: \(topReferenceIsTopAnchor)")
+        
+        profileImageView.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 8)
+            
         let stack = UIStackView(arrangedSubviews: [infoLabel, captionLabel])
         stack.axis = .vertical
         stack.distribution = .fillProportionally
@@ -170,7 +185,14 @@ class TweetCell: UICollectionViewCell{
         infoLabel.attributedText = viewModel.userInfoText
         likeButton.tintColor = viewModel.likeButtonTintColor
         likeButton.setImage(viewModel.likeButtonImage, for: .normal)
-        print("DEBUG: did set tweet in cell")
+        //print("DEBUG: did set tweet in cell")
+        
+        replyLabel.isHidden = viewModel.shouldHideReplyLabel
+        replyLabel.text = viewModel.replyText
+        
+        topReferenceIsTopAnchor = replyLabel.isHidden
+        print("DEBUGAA:2 = \(topReferenceIsTopAnchor)")        
+        
     }
     
     

@@ -31,6 +31,8 @@ class ProfileController: UICollectionViewController {
         }
     }*/
     
+    private var shouldNotShowReply = true
+    
     private var likedTweets = [Tweet]()
     
     private var replies = [Tweet]()
@@ -38,10 +40,13 @@ class ProfileController: UICollectionViewController {
     private var currentDataSource: [Tweet] {
         switch selectedFilter {
         case .tweets:
+            shouldNotShowReply = true
             return tweets
         case .replies:
+            shouldNotShowReply = false
             return replies
         case .likes:
+            shouldNotShowReply = true
             return likedTweets
         }
     }
@@ -80,8 +85,9 @@ class ProfileController: UICollectionViewController {
         configureCollectionView()
         fetchTweets()
         checkIfUserIsFollowed();
-        fetchUsersStats();
+        fetchUsersStats()
         fetchLikeTweets()
+        fetchReplies()
     }
     
     func checkIfUserIsFollowed(){
@@ -123,7 +129,15 @@ class ProfileController: UICollectionViewController {
         }
     }
     
-    
+    func fetchReplies(){
+        TweetService.shared.fetchReplies(forUser: user) { (tweets) in
+            self.replies = tweets
+            
+            self.replies.forEach { reply in
+                
+            }
+        }
+    }
     
     
     //MARK: - Properties
@@ -135,7 +149,7 @@ extension ProfileController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TweetCell        
         cell.tweet = currentDataSource[indexPath.row]
         return cell
     }
@@ -151,7 +165,7 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let tweet = tweets[indexPath.row]
+        let tweet = currentDataSource[indexPath.row]
         let viewModel = TweetViewModel(tweet: tweet)
         let height = viewModel.size(forWidth: view.frame.width, font: UIFont.systemFont(ofSize: 14)).height
         return CGSize(width: view.frame.width, height: height + 88)

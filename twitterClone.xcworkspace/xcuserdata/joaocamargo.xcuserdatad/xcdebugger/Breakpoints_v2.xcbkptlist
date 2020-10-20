@@ -78,8 +78,8 @@
             filePath = "twitterClone/Controller/ProfileController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
+            startingLineNumber = "200"
+            endingLineNumber = "200"
             landmarkName = "handleEditProfileFollow(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -94,8 +94,8 @@
             filePath = "twitterClone/Controller/ProfileController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "197"
-            endingLineNumber = "197"
+            startingLineNumber = "211"
+            endingLineNumber = "211"
             landmarkName = "handleEditProfileFollow(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -104,14 +104,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "2EB865FA-19F7-41F2-9EBB-AD2A77840FF2"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "twitterClone/Controller/ProfileController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "89"
-            endingLineNumber = "89"
+            startingLineNumber = "95"
+            endingLineNumber = "95"
             landmarkName = "checkIfUserIsFollowed()"
             landmarkType = "7">
          </BreakpointContent>
@@ -418,7 +418,7 @@
             landmarkType = "0">
             <Locations>
                <Location
-                  uuid = "B918E6ED-9108-4520-BE09-5882843E8C03 - 969eacd7c101b1e3"
+                  uuid = "B918E6ED-9108-4520-BE09-5882843E8C03 - 969eacd7c101b180"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -428,12 +428,12 @@
                   urlString = "file:///Users/joaocamargo/macHD/GITHUB/swift_twitterRemake/twitterClone/Controller/NotificationsController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "37"
-                  endingLineNumber = "37"
-                  offsetFromSymbolStart = "24">
+                  startingLineNumber = "38"
+                  endingLineNumber = "38"
+                  offsetFromSymbolStart = "196">
                </Location>
                <Location
-                  uuid = "B918E6ED-9108-4520-BE09-5882843E8C03 - e971a72ff4f6c3c4"
+                  uuid = "B918E6ED-9108-4520-BE09-5882843E8C03 - e971a72ff4f6c3e5"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
@@ -443,9 +443,9 @@
                   urlString = "file:///Users/joaocamargo/macHD/GITHUB/swift_twitterRemake/twitterClone/Controller/NotificationsController.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "38"
-                  endingLineNumber = "38"
-                  offsetFromSymbolStart = "42">
+                  startingLineNumber = "39"
+                  endingLineNumber = "39"
+                  offsetFromSymbolStart = "84">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -464,6 +464,22 @@
             endingLineNumber = "39"
             landmarkName = "unknown"
             landmarkType = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8085FDBC-BCB2-43D5-B998-7C26B7813956"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "twitterClone/View/TweetCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "118"
+            endingLineNumber = "118"
+            landmarkName = "init(frame:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
