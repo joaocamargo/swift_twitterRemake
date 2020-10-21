@@ -38,11 +38,17 @@ class TweetCell: UICollectionViewCell{
         iv.clipsToBounds = true
         iv.setDimensions(width: 48, height: 48)
         iv.layer.cornerRadius = 48/2
-        iv.backgroundColor = .red
+        iv.layer.borderColor = UIColor.white.cgColor
+        iv.layer.borderWidth = 1
+        //iv.
+        //iv.backgroundColor = .red
         
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleProfileImageTapped))
         iv.addGestureRecognizer(tap)
         iv.isUserInteractionEnabled = true
+        
+
+        
         
         return iv
     }()
@@ -51,6 +57,8 @@ class TweetCell: UICollectionViewCell{
         let label = UILabel()
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 12)
+        label.frame.size.height = 100
+        label.padding = UIEdgeInsets(top: 10, left: 16, bottom: 0, right: 0)
         return label
     }()
     
@@ -98,7 +106,13 @@ class TweetCell: UICollectionViewCell{
         button.addTarget(self, action: #selector(handleShareTapped), for: .touchUpInside)
         return button
     }()
-    
+        
+    private lazy var viewSeparator: UIView = {
+        let separator = UIView()
+        separator.heightAnchor.constraint(equalToConstant: 6).isActive = true
+        separator.backgroundColor = .white
+        return separator
+    }()
  
     private let infoLabel = UILabel()
     
@@ -108,25 +122,31 @@ class TweetCell: UICollectionViewCell{
         super.init(frame: frame)
         backgroundColor = .white
         
-//        addSubview(replyLabel)
-//        replyLabel.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 8)
+        let captionStack = UIStackView(arrangedSubviews: [infoLabel, captionLabel])
+        captionStack.axis = .vertical
+        captionStack.distribution = .fillProportionally
+        captionStack.spacing = 4
         
-        addSubview(profileImageView)
+        let imageCaptionStack = UIStackView(arrangedSubviews: [profileImageView,captionStack])
+        imageCaptionStack.distribution = .fillProportionally
+        imageCaptionStack.spacing = 8
+        imageCaptionStack.alignment = .leading
         
-        print("DEBUGAA: \(topReferenceIsTopAnchor)")
         
-        profileImageView.anchor(top: topAnchor, left: leftAnchor, paddingTop: 8, paddingLeft: 8)
-            
-        let stack = UIStackView(arrangedSubviews: [infoLabel, captionLabel])
+        let stack = UIStackView(arrangedSubviews: [replyLabel,viewSeparator,imageCaptionStack])
         stack.axis = .vertical
-        stack.distribution = .fillProportionally
-        stack.spacing = 4
+        imageCaptionStack.spacing = 5
+        stack.distribution = .fill
+        
+        //stack.addHorizontalSeparators(color: .black)
         
         addSubview(stack)
-        stack.anchor(top: profileImageView.topAnchor, left: profileImageView.rightAnchor, right: rightAnchor, paddingLeft: 12, paddingRight: 16)
+        stack.anchor(top: topAnchor, left: leftAnchor, right: rightAnchor,paddingTop: 4, paddingLeft: 12, paddingRight: 16)
+        
+        //replyLabel.isHidden = true
         
         infoLabel.font = UIFont.systemFont(ofSize: 14)
-        infoLabel.text = "Joao Camargo"
+        //infoLabel.text = "Joao Camargo"
         
         let actionStack = UIStackView(arrangedSubviews: [commentButton, retweetButton, likeButton, shareButton])
         actionStack.axis = .horizontal
@@ -182,18 +202,95 @@ class TweetCell: UICollectionViewCell{
         
         captionLabel.text = tweet.caption
         profileImageView.sd_setImage(with: viewModel.profileImageUrl, completed: nil)
+        
+        
+
         infoLabel.attributedText = viewModel.userInfoText
         likeButton.tintColor = viewModel.likeButtonTintColor
         likeButton.setImage(viewModel.likeButtonImage, for: .normal)
         //print("DEBUG: did set tweet in cell")
         
         replyLabel.isHidden = viewModel.shouldHideReplyLabel
+        viewSeparator.isHidden = viewModel.shouldHideReplyLabel
         replyLabel.text = viewModel.replyText
         
-        topReferenceIsTopAnchor = replyLabel.isHidden
-        print("DEBUGAA:2 = \(topReferenceIsTopAnchor)")        
+        
+        //replyLabel.anchor(top: topAnchor, left: leftAnchor, bottom: topAnchor, paddingTop: 10, paddingBottom: 10)
+        
+        //print("DEBUGAA:2 = \(topReferenceIsTopAnchor)")
         
     }
     
     
+}
+
+
+
+extension UILabel {
+    private struct AssociatedKeys {
+        static var padding = UIEdgeInsets()
+    }
+
+    public var padding: UIEdgeInsets? {
+        get {
+            return objc_getAssociatedObject(self, &AssociatedKeys.padding) as? UIEdgeInsets
+        }
+        set {
+            if let newValue = newValue {
+                objc_setAssociatedObject(self, &AssociatedKeys.padding, newValue as UIEdgeInsets?, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            }
+        }
+    }
+
+    override open func draw(_ rect: CGRect) {
+        if let insets = padding {
+            self.drawText(in: rect.inset(by: insets))
+        } else {
+            self.drawText(in: rect)
+        }
+    }
+
+    override open var intrinsicContentSize: CGSize {
+        guard let text = self.text else { return super.intrinsicContentSize }
+
+        var contentSize = super.intrinsicContentSize
+        var textWidth: CGFloat = frame.size.width
+        var insetsHeight: CGFloat = 0.0
+        var insetsWidth: CGFloat = 0.0
+
+        if let insets = padding {
+            insetsWidth += insets.left + insets.right
+            insetsHeight += insets.top + insets.bottom
+            textWidth -= insetsWidth
+        }
+
+        let newSize = text.boundingRect(with: CGSize(width: textWidth, height: CGFloat.greatestFiniteMagnitude),
+                                        options: NSStringDrawingOptions.usesLineFragmentOrigin,
+                                        attributes: [NSAttributedString.Key.font: self.font], context: nil)
+
+        contentSize.height = ceil(newSize.size.height) + insetsHeight
+        contentSize.width = ceil(newSize.size.width) + insetsWidth
+
+        return contentSize
+    }
+}
+
+
+extension UIStackView {
+    func addHorizontalSeparators(color : UIColor) {
+        var i = self.arrangedSubviews.count
+        while i >= 0 {
+            let separator = createSeparator(color: color)
+            insertArrangedSubview(separator, at: i)
+            separator.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 1).isActive = true
+            i -= 1
+        }
+    }
+
+    private func createSeparator(color : UIColor) -> UIView {
+        let separator = UIView()
+        separator.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        separator.backgroundColor = color
+        return separator
+    }
 }

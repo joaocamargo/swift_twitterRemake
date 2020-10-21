@@ -167,8 +167,13 @@ extension ProfileController: UICollectionViewDelegateFlowLayout {
         
         let tweet = currentDataSource[indexPath.row]
         let viewModel = TweetViewModel(tweet: tweet)
-        let height = viewModel.size(forWidth: view.frame.width, font: UIFont.systemFont(ofSize: 14)).height
-        return CGSize(width: view.frame.width, height: height + 88)
+        var height = viewModel.size(forWidth: view.frame.width, font: UIFont.systemFont(ofSize: 14)).height + 88
+        
+        if currentDataSource[indexPath.row].isReply {
+            height += 20
+        }
+        
+        return CGSize(width: view.frame.width, height: height)
     }
 }
 
