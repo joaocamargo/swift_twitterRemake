@@ -49,6 +49,8 @@
 		05DD2F1725211B2C0090F353 /* ProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DD2F1625211B2C0090F353 /* ProfileHeader.swift */; };
 		05DD2F1A252129A90090F353 /* ProfileFilterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DD2F19252129A90090F353 /* ProfileFilterView.swift */; };
 		05DD2F1D252130FA0090F353 /* ProfileFilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05DD2F1C252130FA0090F353 /* ProfileFilterCell.swift */; };
+		05FC8982254364440065124E /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FC8981254364440065124E /* EditProfileController.swift */; };
+		05FC89872543678C0065124E /* EditProfileHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05FC89862543678C0065124E /* EditProfileHeader.swift */; };
 		91C88E5A6E0AF639186141CB /* Pods_twitterClone.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0ABD0867D6AE24958B213543 /* Pods_twitterClone.framework */; };
 /* End PBXBuildFile section */
 
@@ -97,6 +99,8 @@
 		05DD2F1625211B2C0090F353 /* ProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileHeader.swift; sourceTree = "<group>"; };
 		05DD2F19252129A90090F353 /* ProfileFilterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterView.swift; sourceTree = "<group>"; };
 		05DD2F1C252130FA0090F353 /* ProfileFilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFilterCell.swift; sourceTree = "<group>"; };
+		05FC8981254364440065124E /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
+		05FC89862543678C0065124E /* EditProfileHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileHeader.swift; sourceTree = "<group>"; };
 		0ABD0867D6AE24958B213543 /* Pods_twitterClone.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_twitterClone.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F082E571863DE049221E492 /* Pods-twitterClone.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitterClone.debug.xcconfig"; path = "Target Support Files/Pods-twitterClone/Pods-twitterClone.debug.xcconfig"; sourceTree = "<group>"; };
 		CB87616391541E69D3FAB568 /* Pods-twitterClone.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-twitterClone.release.xcconfig"; path = "Target Support Files/Pods-twitterClone/Pods-twitterClone.release.xcconfig"; sourceTree = "<group>"; };
@@ -175,11 +179,9 @@
 		05B5EE4024FD892800FF45DA /* View */ = {
 			isa = PBXGroup;
 			children = (
+				05FC89842543675F0065124E /* Profile */,
 				059BC5AC250D129A00AD5C4F /* CaptionTextView.swift */,
 				059BC5B2250ECC1F00AD5C4F /* TweetCell.swift */,
-				05DD2F1C252130FA0090F353 /* ProfileFilterCell.swift */,
-				05DD2F1625211B2C0090F353 /* ProfileHeader.swift */,
-				05DD2F19252129A90090F353 /* ProfileFilterView.swift */,
 				05C299CE2532424D003EF5CF /* UserCell.swift */,
 				05C299D425337EAB003EF5CF /* TweetHeader.swift */,
 				05C299DD253A2F7F003EF5CF /* ActionSheetCell.swift */,
@@ -200,6 +202,7 @@
 				059BC5AA250C2FBF00AD5C4F /* UploadTweetController.swift */,
 				05DD2F132520FA0A0090F353 /* ProfileController.swift */,
 				05C299D125337B91003EF5CF /* TweetController.swift */,
+				05FC8981254364440065124E /* EditProfileController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -253,6 +256,17 @@
 				05B5EE6A24FDC61300FF45DA /* RegistrationController.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		05FC89842543675F0065124E /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				05DD2F1C252130FA0090F353 /* ProfileFilterCell.swift */,
+				05DD2F1625211B2C0090F353 /* ProfileHeader.swift */,
+				05DD2F19252129A90090F353 /* ProfileFilterView.swift */,
+				05FC89862543678C0065124E /* EditProfileHeader.swift */,
+			);
+			path = Profile;
 			sourceTree = "<group>";
 		};
 		392A80427C76FF335BA797DF /* Frameworks */ = {
@@ -381,12 +395,14 @@
 			files = (
 				05B5EE0F24FD885D00FF45DA /* ViewController.swift in Sources */,
 				059BC5AF250D56A600AD5C4F /* TweetService.swift in Sources */,
+				05FC89872543678C0065124E /* EditProfileHeader.swift in Sources */,
 				05B5EE6424FDB40600FF45DA /* Extensions.swift in Sources */,
 				05B5EE5024FD8BCA00FF45DA /* FeedController.swift in Sources */,
 				05CC79B5253CDE1A00F1E682 /* NotificationService.swift in Sources */,
 				05B5EE5624FD8C7F00FF45DA /* ConversationsController.swift in Sources */,
 				059BC5AB250C2FBF00AD5C4F /* UploadTweetController.swift in Sources */,
 				0527777A2503B26F00BCAD3B /* User.swift in Sources */,
+				05FC8982254364440065124E /* EditProfileController.swift in Sources */,
 				059BC5AD250D129A00AD5C4F /* CaptionTextView.swift in Sources */,
 				05DD2F1A252129A90090F353 /* ProfileFilterView.swift in Sources */,
 				05DD2F1725211B2C0090F353 /* ProfileHeader.swift in Sources */,
