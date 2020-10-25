@@ -205,7 +205,7 @@ class ProfileHeader: UICollectionReusableView {
         
         fullNameLabel.text = user.fullname
         usernameLabel.text = viewModel.usernameText
-     
+        bioLabel.text = user.bio
         
         if !user.isCurrentUser {
             logoutButton.isHidden = true
