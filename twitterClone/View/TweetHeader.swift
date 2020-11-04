@@ -8,9 +8,11 @@
 
 import Foundation
 import UIKit
+import ActiveLabel
 
 protocol TweetHeaderDelegate: class {
     func showActionSheet()
+    func handleFetchUser(withUsername username: String)
 }
 
 class TweetHeader: UICollectionReusableView {
@@ -55,13 +57,14 @@ class TweetHeader: UICollectionReusableView {
         return label
     }()
     
-    private let captionLabel: UILabel = {
-        let label = UILabel()
+    private let captionLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.font = UIFont.systemFont(ofSize: 20)
         label.textColor = .black
         label.text = "caption Labelcaption Labelcaption Labelcaption Labelcaption Labelcaption Labelcaption Label"
         label.numberOfLines = 0
-        
+        label.mentionColor = .twitterBlue
+        label.hashtagColor = .twitterBlue
         return label
     }()
     
@@ -74,12 +77,14 @@ class TweetHeader: UICollectionReusableView {
         return label
     }()
     
-    private let replyLabel: UILabel = {
-        let label = UILabel()
+    private let replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 12)
         label.frame.size.height = 100
         label.padding = UIEdgeInsets(top: 10, left: 16, bottom: 0, right: 0)
+        label.mentionColor = .twitterBlue
+        label.hashtagColor = .twitterBlue
         return label
     }()
     
@@ -187,7 +192,7 @@ class TweetHeader: UICollectionReusableView {
         //actionStack.anchor(bottom: bottomAnchor, paddingBottom: 12)
         actionStack.anchor(top: statsView.bottomAnchor,paddingTop: 12)
         
-        
+        configureMentionHandler()
     }
     
     required init?(coder: NSCoder) {
@@ -249,6 +254,13 @@ class TweetHeader: UICollectionReusableView {
         button.setDimensions(width: 20, height: 20)
         button.tintColor = .darkGray
         return button
+    }
+    
+    func configureMentionHandler(){
+        captionLabel.handleMentionTap { username in
+            self.delegate?.handleFetchUser(withUsername: username)
+            print("DEBUG: mention \(username)")
+        }
     }
     
 }

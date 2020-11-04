@@ -8,12 +8,14 @@
 
 import Foundation
 import UIKit
+import ActiveLabel
 
 
 protocol TweetCellDelegate: class {
     func handleProfileImageTapped(_ cell: TweetCell)
     func handleReplyTapped(_ cell: TweetCell)
     func handleLikeTapped(_ cell: TweetCell)
+    func handleFetchUser(withUsername username: String)
 }
 
 class TweetCell: UICollectionViewCell{
@@ -53,20 +55,23 @@ class TweetCell: UICollectionViewCell{
         return iv
     }()
     
-    private let replyLabel: UILabel = {
-        let label = UILabel()
+    private let replyLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.textColor = .lightGray
         label.font = UIFont.systemFont(ofSize: 12)
         label.frame.size.height = 100
+        label.mentionColor = .twitterBlue
         label.padding = UIEdgeInsets(top: 10, left: 16, bottom: 0, right: 0)
         return label
     }()
     
-    private let captionLabel: UILabel = {
-        let label = UILabel()
+    private let captionLabel: ActiveLabel = {
+        let label = ActiveLabel()
         label.font = UIFont.systemFont(ofSize: 14)
         label.numberOfLines = 0
         label.text = "dsfdsfsdfsdffdsfds"
+        label.mentionColor = .twitterBlue
+        label.hashtagColor = .twitterBlue
         return label
     }()
     
@@ -161,7 +166,8 @@ class TweetCell: UICollectionViewCell{
         underlineView.anchor(left: leftAnchor, bottom: bottomAnchor, right: rightAnchor, height: 1)
         
         
-        
+        configureMentionHandler()
+
     }
     
     required init?(coder: NSCoder) {
@@ -215,10 +221,18 @@ class TweetCell: UICollectionViewCell{
         replyLabel.text = viewModel.replyText
         
         
+        
         //replyLabel.anchor(top: topAnchor, left: leftAnchor, bottom: topAnchor, paddingTop: 10, paddingBottom: 10)
         
         //print("DEBUGAA:2 = \(topReferenceIsTopAnchor)")
         
+    }
+    
+    func configureMentionHandler(){
+        captionLabel.handleMentionTap { username in
+            self.delegate?.handleFetchUser(withUsername: username)
+            print("DEBUG: mention \(username)")
+        }
     }
     
     
