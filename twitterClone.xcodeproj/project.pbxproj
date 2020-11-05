@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0519FCAD255469CC0021B0A1 /* EditProfileFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0519FCAC255469CC0021B0A1 /* EditProfileFooter.swift */; };
 		0527777125011A1100BCAD3B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0527777025011A1100BCAD3B /* GoogleService-Info.plist */; };
 		0527777425017B0D00BCAD3B /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0527777325017B0D00BCAD3B /* Constants.swift */; };
 		052777762501827400BCAD3B /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 052777752501827400BCAD3B /* AuthService.swift */; };
@@ -58,6 +59,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0519FCAC255469CC0021B0A1 /* EditProfileFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileFooter.swift; sourceTree = "<group>"; };
 		0527777025011A1100BCAD3B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		0527777325017B0D00BCAD3B /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		052777752501827400BCAD3B /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 				05DD2F19252129A90090F353 /* ProfileFilterView.swift */,
 				05FC89862543678C0065124E /* EditProfileHeader.swift */,
 				05FC898C25437B610065124E /* EditProfileCell.swift */,
+				0519FCAC255469CC0021B0A1 /* EditProfileFooter.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -434,6 +437,7 @@
 				05B5EE5424FD8C6C00FF45DA /* NotificationsController.swift in Sources */,
 				059BC5B3250ECC1F00AD5C4F /* TweetCell.swift in Sources */,
 				05FC898A254376D10065124E /* EditProfileViewModel.swift in Sources */,
+				0519FCAD255469CC0021B0A1 /* EditProfileFooter.swift in Sources */,
 				05B5EE0D24FD885D00FF45DA /* SceneDelegate.swift in Sources */,
 				0527777825019FB800BCAD3B /* UserService.swift in Sources */,
 				05B5EE6B24FDC61300FF45DA /* RegistrationController.swift in Sources */,

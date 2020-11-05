@@ -19,6 +19,7 @@ class EditProfileController: UITableViewController {
     
     //MARK: - properties
     private var user: User
+    private let footerView = EditProfileFooter()
     private lazy var headerView = EditProfileHeader(user: user)
     private var userInfoChanged = false
     private let imagePicker = UIImagePickerController()
@@ -121,8 +122,10 @@ class EditProfileController: UITableViewController {
     func configureTableView(){
         tableView.tableHeaderView = headerView
         headerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 180)
-        tableView.tableFooterView = UIView()
+        footerView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 100)
+        tableView.tableFooterView = footerView
         headerView.delegate = self
+        footerView.delegate = self
         tableView.register(EditProfileCell.self, forCellReuseIdentifier: reuseIdentifier)
     }
     
@@ -198,6 +201,14 @@ extension EditProfileController: EditProfileCellDelegate{
         case .bio:
             user.bio = cell.bioTextView.text
         }
+    }
+    
+    
+}
+
+extension EditProfileController: EditProfileControllerDelegate{
+    func controller(_ controller: EditProfileController, wantsToUpdate user: User) {
+        
     }
     
     
