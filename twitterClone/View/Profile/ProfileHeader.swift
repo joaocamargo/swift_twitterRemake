@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-import Firebase
+//import Firebase
 
 protocol ProfileHeaderDelegate: class {
     func handleDismissal()
@@ -50,16 +50,16 @@ class ProfileHeader: UICollectionReusableView {
         return button
     }()
     
-    private lazy var logoutButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Logout", for: .normal)
-        button.layer.borderColor = UIColor.red.cgColor
-        button.layer.borderWidth = 1.25
-        button.setTitleColor(.twitterBlue, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.addTarget(self, action: #selector(handleLogout), for: .touchUpInside)
-        return button
-    }()
+//    private lazy var logoutButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setTitle("Logout", for: .normal)
+//        button.layer.borderColor = UIColor.red.cgColor
+//        button.layer.borderWidth = 1.25
+//        button.setTitleColor(.twitterBlue, for: .normal)
+//        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
+//        button.addTarget(self, action: #selector(handleLogout), for: .touchUpInside)
+//        return button
+//    }()
     
     private lazy var backButton: UIButton = {
         let btn = UIButton(type: .system)
@@ -138,10 +138,10 @@ class ProfileHeader: UICollectionReusableView {
         editProfileFollowButton.setDimensions(width: 100, height: 36)
         editProfileFollowButton.layer.cornerRadius = 36/2
         
-        addSubview(logoutButton)
-        logoutButton.anchor(top: editProfileFollowButton.bottomAnchor, right: rightAnchor,paddingTop: 12,paddingRight: 12)
-        logoutButton.setDimensions(width: 50, height: 50)
-        logoutButton.layer.cornerRadius = 50/2
+//        addSubview(logoutButton)
+//        logoutButton.anchor(top: editProfileFollowButton.bottomAnchor, right: rightAnchor,paddingTop: 12,paddingRight: 12)
+//        logoutButton.setDimensions(width: 50, height: 50)
+//        logoutButton.layer.cornerRadius = 50/2
         
         addSubview(fullNameLabel)
         fullNameLabel.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, paddingTop: 2,paddingLeft: 12)
@@ -182,10 +182,10 @@ class ProfileHeader: UICollectionReusableView {
         delegate?.handleEditProfileFollow(self)
     }
     
-    @objc func handleLogout(){
+    /*@objc func handleLogout(){
         print("FAZER LOGOUT")
         try! Auth.auth().signOut()
-    }
+    }*/
     
     @objc func handleFollowersTapped() {
         
@@ -207,9 +207,9 @@ class ProfileHeader: UICollectionReusableView {
         usernameLabel.text = viewModel.usernameText
         bioLabel.text = user.bio
         
-        if !user.isCurrentUser {
+       /* if !user.isCurrentUser {
             logoutButton.isHidden = true
-        }
+        }*/
     }
     
 }

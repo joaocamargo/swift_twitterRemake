@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 private let reuseIdentifier = "TweetCell"
 private let reuseHeaderIdentifier = "ProfileHeader"
@@ -252,6 +253,18 @@ extension ProfileController: ProfileHeaderDelegate {
 //MARK: - editprofilecontrollerdelegate
 
 extension ProfileController: EditProfileControllerDelegate{
+    func handleLogout() {
+        do{
+            try Auth.auth().signOut()
+            let nav = UINavigationController(rootViewController: LoginController())
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav,animated: true,completion: nil)
+            
+        } catch let erro {
+            print(erro)
+        }
+    }
+    
     func controller(_ controller: EditProfileController, wantsToUpdate user: User) {
         controller.dismiss(animated: true, completion: nil )
         self.user = user
