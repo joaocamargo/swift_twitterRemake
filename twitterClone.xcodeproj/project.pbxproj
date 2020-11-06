@@ -26,7 +26,7 @@
 		05B5EE1724FD886100FF45DA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 05B5EE1524FD886100FF45DA /* LaunchScreen.storyboard */; };
 		05B5EE4E24FD8A0E00FF45DA /* MainTabController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B5EE4D24FD8A0E00FF45DA /* MainTabController.swift */; };
 		05B5EE5024FD8BCA00FF45DA /* FeedController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B5EE4F24FD8BCA00FF45DA /* FeedController.swift */; };
-		05B5EE5224FD8C5200FF45DA /* ExploreController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B5EE5124FD8C5200FF45DA /* ExploreController.swift */; };
+		05B5EE5224FD8C5200FF45DA /* SearchController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B5EE5124FD8C5200FF45DA /* SearchController.swift */; };
 		05B5EE5424FD8C6C00FF45DA /* NotificationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B5EE5324FD8C6C00FF45DA /* NotificationsController.swift */; };
 		05B5EE5624FD8C7F00FF45DA /* ConversationsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B5EE5524FD8C7F00FF45DA /* ConversationsController.swift */; };
 		05B5EE6424FDB40600FF45DA /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 05B5EE6324FDB40600FF45DA /* Extensions.swift */; };
@@ -80,7 +80,7 @@
 		05B5EE1824FD886100FF45DA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		05B5EE4D24FD8A0E00FF45DA /* MainTabController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabController.swift; sourceTree = "<group>"; };
 		05B5EE4F24FD8BCA00FF45DA /* FeedController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedController.swift; sourceTree = "<group>"; };
-		05B5EE5124FD8C5200FF45DA /* ExploreController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExploreController.swift; sourceTree = "<group>"; };
+		05B5EE5124FD8C5200FF45DA /* SearchController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchController.swift; sourceTree = "<group>"; };
 		05B5EE5324FD8C6C00FF45DA /* NotificationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsController.swift; sourceTree = "<group>"; };
 		05B5EE5524FD8C7F00FF45DA /* ConversationsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsController.swift; sourceTree = "<group>"; };
 		05B5EE6324FDB40600FF45DA /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -205,7 +205,7 @@
 				05B5EE6724FDC53D00FF45DA /* Authentication */,
 				05B5EE4D24FD8A0E00FF45DA /* MainTabController.swift */,
 				05B5EE4F24FD8BCA00FF45DA /* FeedController.swift */,
-				05B5EE5124FD8C5200FF45DA /* ExploreController.swift */,
+				05B5EE5124FD8C5200FF45DA /* SearchController.swift */,
 				05B5EE5324FD8C6C00FF45DA /* NotificationsController.swift */,
 				05B5EE5524FD8C7F00FF45DA /* ConversationsController.swift */,
 				059BC5AA250C2FBF00AD5C4F /* UploadTweetController.swift */,
@@ -443,7 +443,7 @@
 				05B5EE6B24FDC61300FF45DA /* RegistrationController.swift in Sources */,
 				05C299D82534E7C2003EF5CF /* UploadTweetViewModel.swift in Sources */,
 				05C299DB2538FC8A003EF5CF /* ActionSheetLauncher.swift in Sources */,
-				05B5EE5224FD8C5200FF45DA /* ExploreController.swift in Sources */,
+				05B5EE5224FD8C5200FF45DA /* SearchController.swift in Sources */,
 				05CC79B2253CDBA700F1E682 /* Notification.swift in Sources */,
 				05C299DE253A2F7F003EF5CF /* ActionSheetCell.swift in Sources */,
 				05CC79B8253CE46800F1E682 /* NotificationCell.swift in Sources */,

@@ -10,10 +10,17 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
+enum ActionButtonConfiguration {
+    case tweet
+    case message
+}
+
 class MainTabController: UITabBarController {
        
     
     // MARK: - Properties
+    
+    private var buttonConfig: ActionButtonConfiguration = .tweet
     
     var user: User? {
         didSet{
@@ -83,9 +90,16 @@ class MainTabController: UITabBarController {
     //MARK: - selectors
     
     @objc func handleActionButtonTapped(){
-        print("aaaa")
-        guard let user = user else { return }
-        let controller = UploadTweetController(user: user, config: .tweet)
+        
+        let controller: UIViewController
+        
+        switch buttonConfig {
+        case .tweet:
+            guard let user = user else { return }
+            controller = UploadTweetController(user: user, config: .tweet)
+        case .message:
+            controller = SearchController(config: .messages)
+        }
         let nav = UINavigationController(rootViewController: controller)
         nav.modalPresentationStyle = .fullScreen
         present(nav,animated: true,completion: nil)
@@ -95,6 +109,8 @@ class MainTabController: UITabBarController {
     
     func configureUI(){
         view.addSubview(actionButton)
+        
+        self.delegate = self
         /*actionButton.translatesAutoresizingMaskIntoConstraints = false
         actionButton.heightAnchor.constraint(equalToConstant: 56).isActive = true
         actionButton.widthAnchor.constraint(equalToConstant: 56).isActive = true
@@ -113,7 +129,7 @@ class MainTabController: UITabBarController {
         let feed = FeedController(collectionViewLayout: UICollectionViewFlowLayout())
         let navFeed = templateNavigationController(image: UIImage(named: "home_unselected"), rootViewController: feed)
 
-        let explore = ExploreController()
+        let explore = SearchController(config: .userSearch)
         let navExplore = templateNavigationController(image: UIImage(named: "search_unselected"), rootViewController: explore)
        
         let notifications = NotificationsController()
@@ -132,4 +148,15 @@ class MainTabController: UITabBarController {
         return nav
     }
     
+}
+
+extension MainTabController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let index = viewControllers?.firstIndex(of: viewController)
+        
+        let image = index == 3 ?  #imageLiteral(resourceName: "mail") : #imageLiteral(resourceName: "new_tweet")
+        self.actionButton.setImage(image, for: .normal)
+        buttonConfig = index == 3 ? .message : .tweet
+        print(index)
+    }
 }
